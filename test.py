@@ -13,6 +13,14 @@ target = digits.target
 pca = PCA(n_components=2)
 data_2d = pca.fit_transform(data)
 
+# Plotar o gráfico 2D antes do K-means
+plt.figure(figsize=(8, 6))
+plt.scatter(data_2d[:, 0], data_2d[:, 1], cmap='viridis')
+plt.title('Data Plot - Digits Dataset')
+plt.xlabel('Componente Principal 1')
+plt.ylabel('Componente Principal 2')
+plt.show()
+
 # Criar uma instância do algoritmo K-means
 kmeans = KMeans(n_clusters=10)  # Defina o número de clusters desejado
 
@@ -26,6 +34,13 @@ labels = kmeans.labels_
 plt.figure(figsize=(8, 6))
 plt.scatter(data_2d[:, 0], data_2d[:, 1], c=labels, cmap='viridis')
 plt.colorbar(label='Cluster')
+
+# Obter as coordenadas dos centroides
+centroids = kmeans.cluster_centers_
+
+# Plotar os centroides em vermelho
+plt.scatter(centroids[:, 0], centroids[:, 1], marker='o', c='red', s=100)
+
 plt.title('K-means Clustering - Digits Dataset')
 plt.xlabel('Componente Principal 1')
 plt.ylabel('Componente Principal 2')
